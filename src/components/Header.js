@@ -1,11 +1,22 @@
-import {AppBar, Toolbar, Typography} from '@mui/material'
+import {AppBar, Toolbar, Typography,Box, Button} from '@mui/material'
 
 const Header = () => {
   return (
-    <AppBar>
+    <AppBar
+      sx={{backgroundColor: '#000000'}}
+    >
         <Toolbar>
             {/*add text using Typography  */}
-            <Typography>Recipe Application</Typography>
+            <Typography 
+            variant="h5"
+            >Recipe Application</Typography>
+            <Box
+            display="flex"
+            marginLeft="320px"
+            >
+              <Button color='warning'>LogIn</Button>
+              <Button color='warning'>SignUp</Button>
+            </Box>
         </Toolbar>
     </AppBar>
   )
