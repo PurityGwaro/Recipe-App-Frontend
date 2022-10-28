@@ -1,9 +1,14 @@
+import {Suspense,lazy} from "react"
 import './App.css';
-import Header from './components/Header';
+import Loader from './components/Loader';
+import 'bootstrap/dist/css/bootstrap.min.css';
+const Header = lazy(()=> import('./components/Header'))
 
 function App() {
   return (
-    <Header/>
+    <Suspense fallback={<Loader/>}>
+      <Header/>
+    </Suspense>
   );
 }
 
