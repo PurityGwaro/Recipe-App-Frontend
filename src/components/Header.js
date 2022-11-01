@@ -3,12 +3,13 @@ import {AppBar, Toolbar, Typography, Box, Button} from '@mui/material'
 const Header = () => {
   return (
     <AppBar
-    position="static"
+    // header
     sx={{
       backgroundColor: '#000000',
   }}
     >
         <Toolbar
+        // div
         sx={{
           display:"flex",
           alignItems:"center",
@@ -22,8 +23,20 @@ const Header = () => {
             </Typography>
             <Box>
               {/* acts as a div */}
-              <Button color="warning">LogIn</Button>
-              <Button color="warning">SignUp</Button>
+              <Button 
+              variant='contained'
+              sx={{
+                borderRadius:"8px",
+                margin:1
+              }}
+              color="warning">LogIn</Button>
+              <Button 
+              variant='contained'
+              sx={{
+                borderRadius:"8px",
+                margin:1
+              }}
+              color="warning">SignUp</Button>
             </Box>
         </Toolbar>
     </AppBar>
