@@ -2,8 +2,8 @@ import React from 'react'
 
 const Login = () => {
   return (
-    <div>
-      
+    <div> 
+      log in page
     </div>
   )
 }
