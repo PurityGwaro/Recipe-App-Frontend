@@ -3,12 +3,21 @@ import {AppBar, Toolbar, Typography, Box, Button} from '@mui/material'
 const Header = () => {
   return (
     <AppBar
-      sx={{backgroundColor: '#000000'}}
+    position="static"
+    sx={{
+      backgroundColor: '#000000',
+  }}
     >
-        <Toolbar>
+        <Toolbar
+        sx={{
+          display:"flex",
+          alignItems:"center",
+          justifyContent:"space-between",
+        }}
+        >
             {/*add text using Typography  */}
             <Typography
-            variant="h4"
+            variant="h5"
             >Recipe Application
             </Typography>
             <Box>
