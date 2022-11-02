@@ -52,6 +52,7 @@ const Header = () => {
             !isLoggedIn && (
               <>
               <Button
+              className="btn btn1"
             LinkComponent={Link}
             to="/auth"
             variant="contained"
@@ -64,6 +65,7 @@ const Header = () => {
             LogIn
           </Button>
           <Button
+          className="btn btn2"
             LinkComponent={Link}
             to="/auth"
             variant="contained"
@@ -81,6 +83,7 @@ const Header = () => {
           
           {isLoggedIn && (
             <Button
+            className="btn btn3"
               LinkComponent={Link}
               to="/auth"
               variant="contained"
