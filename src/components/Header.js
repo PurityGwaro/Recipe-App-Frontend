@@ -4,6 +4,7 @@ const Header = () => {
   return (
     <AppBar
     // header
+    position='static'
     sx={{
       backgroundColor: '#000000',
   }}
