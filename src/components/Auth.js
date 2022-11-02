@@ -32,6 +32,11 @@ const Auth = () => {
         )}
         <TextField label="Email" type={"email"} placeholder="Email" margin="normal" />
         <TextField label="Password" type={"password"} placeholder="Password" margin="normal" />
+        {isSignup && (
+          <>
+            <TextField label="Repeat Password" placeholder="Repeat Password" margin="normal" />
+          </>
+        )}
         <Button
           color="warning"
           variant="contained"
