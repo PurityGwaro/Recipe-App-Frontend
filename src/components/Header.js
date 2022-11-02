@@ -61,7 +61,7 @@ const Header = () => {
             }}
             color="warning"
           >
-            Log In
+            LogIn
           </Button>
           <Button
             LinkComponent={Link}
@@ -73,7 +73,7 @@ const Header = () => {
             }}
             color="warning"
           >
-            Sign Up
+            SignUp
           </Button>
               </>
             )

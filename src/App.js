@@ -6,7 +6,7 @@ import { Route, Routes } from "react-router-dom";
 import { useSelector } from "react-redux";
 
 const Header = lazy(()=> import('./components/Header'))
-const Login = lazy(()=> import('./components/Login'))
+const Auth = lazy(()=> import('./components/Auth'))
 const Recipes = lazy(()=> import('./components/Recipes'))
 const UserRecipes = lazy(()=> import('./components/UserRecipes'))
 const RecipeDetail = lazy(()=> import('./components/RecipeDetail'))
@@ -16,14 +16,14 @@ function App() {
   // useSelector allows us to grab the state from redux
   const isLoggedIn = useSelector(state => state.isLoggedIn)
   console.log(isLoggedIn);
-  
+
   return (
     <>
     <Suspense fallback={<Loader />}>
       <Header/>
       <div className="contain">
         <Routes>
-          <Route exact path="/auth" element={<Login />} />
+          <Route exact path="/auth" element={<Auth />} />
           <Route exact path="/recipes" element={<Recipes/>} />
           <Route exact path="/myRecipes" element={<UserRecipes />} />
           <Route exact path="/myRecipes/:id" element={<RecipeDetail />} />
