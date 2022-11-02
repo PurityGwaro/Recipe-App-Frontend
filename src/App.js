@@ -18,7 +18,7 @@ function App() {
       <Header/>
       <div className="contain">
         <Routes>
-          <Route exact path="/login" element={<Login />} />
+          <Route exact path="/auth" element={<Login />} />
           <Route exact path="/recipes" element={<Recipes/>} />
           <Route exact path="/myRecipes" element={<UserRecipes />} />
           <Route exact path="/myRecipes/:id" element={<RecipeDetail />} />
