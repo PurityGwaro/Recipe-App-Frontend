@@ -32,9 +32,13 @@ const basicSchema = yup.object().shape({
 
 const Auth = () => {
   const [isSignup, setIssignup] = useState(false);
+
   const onSubmit = async (values, actions) => {
+    // e.preventDefault()
     console.log("submitting form");
+    console.log(values);
   };
+
   const {
     values,
     errors,
@@ -43,6 +47,7 @@ const Auth = () => {
     handleBlur,
     handleChange,
     handleSubmit,
+    resetForm,
   } = useFormik({
     initialValues: {
       email: "",
@@ -54,42 +59,45 @@ const Auth = () => {
     onSubmit,
   });
   return (
-    <form onSubmit={handleSubmit} autoComplete="off">
+    <>
+    <form 
+    onSubmit={handleSubmit} 
+    autoComplete="off">
       <Box
-        className="contain-auth"
-        display="flex"
-        flexDirection={"column"}
-        alignItems={"center"}
-        justifyContent={"center"}
-        maxWidth={400}
-        boxShadow="10px 10px 30px #ccc"
-        padding={3}
-        margin="auto"
-        marginTop={15}
-        borderRadius={5}
+      className="contain-auth"
+      display="flex"
+      flexDirection={"column"}
+      alignItems={"center"}
+      justifyContent={"center"}
+      maxWidth={400}
+      boxShadow="10px 10px 30px #ccc"
+      padding={3}
+      margin="auto"
+      marginTop={15}
+      borderRadius={5}
       >
         <Typography
-          variant="h3"
-          fontWeight={800}
-          padding={3}
-          textAlign="center"
+        variant="h3"
+        fontWeight={800}
+        padding={3}
+        textAlign="center"
         >
           {isSignup ? "SignUp" : "LogIn"}
         </Typography>
         {isSignup && (
           <>
             <TextField
-              id="username"
-              name="username"
-              label="Username"
-              placeholder="UserName"
-              margin="normal"
-              value={values.username}
-              onChange={handleChange}
-              onBlur={handleBlur}
-              className={
-                errors.username && touched.username ? "input-error" : ""
-              }
+            id="username"
+            name="username"
+            label="Username"
+            placeholder="UserName"
+            margin="normal"
+            value={values.username}
+            onChange={handleChange}
+            onBlur={handleBlur}
+            className={
+              errors.username && touched.username ? "input-error" : ""
+            }
             />
             {errors.username && touched.username && (
               <p className="error">{errors.username}</p>
@@ -118,7 +126,7 @@ const Auth = () => {
           type={"password"}
           placeholder="Password"
           margin="normal"
-          value={values.password1}
+          value={values.password}
           onChange={handleChange}
           onBlur={handleBlur}
           className={errors.password && touched.password ? "input-error" : ""}
@@ -130,19 +138,19 @@ const Auth = () => {
           <>
             <TextField
             type={"password"}
-              id="confirmPassword"
-              name="confirmPassword"
-              label="Confirm Password"
-              placeholder="Confirm Password"
-              margin="normal"
-              value={values.confirmPassword}
-              onChange={handleChange}
-              onBlur={handleBlur}
-              className={
-                errors.confirmPassword && touched.confirmPassword
-                  ? "input-error"
-                  : ""
-              }
+            id="confirmPassword"
+            name="confirmPassword"
+            label="Confirm Password"
+            placeholder="Confirm Password"
+            margin="normal"
+            value={values.confirmPassword}
+            onChange={handleChange}
+            onBlur={handleBlur}
+            className={
+              errors.confirmPassword && touched.confirmPassword
+                ? "input-error"
+                : ""
+            }
             />
             {errors.confirmPassword && touched.confirmPassword && (
               <p className="error">{errors.confirmPassword}</p>
@@ -150,14 +158,15 @@ const Auth = () => {
           </>
         )}
         <Button
-          disabled={isSubmitting}
-          className="btn4"
-          color="warning"
-          variant="contained"
-          sx={{
-            borderRadius: "8px",
-            marginTop: 3,
-          }}
+        type="submit"
+        // disabled={isSubmitting}
+        className="btn4"
+        color="warning"
+        variant="contained"
+        sx={{
+          borderRadius: "8px",
+          marginTop: 3,
+        }}
         >
           Submit
         </Button>
@@ -165,22 +174,25 @@ const Auth = () => {
         <Button
           className="btn5"
           onClick={() => {
+            resetForm()
             setIssignup(!isSignup);
           }}
           sx={{
-            marginTop: 2,
-            marginBottom: 2,
-            borderRadius: "8px",
-            textDecoration: "underline",
-            fontSize: "13px",
-            fontWeight: "600",
-            textTransform: "capitalize",
+          marginTop: 2,
+          marginBottom: 2,
+          borderRadius: "8px",
+          textDecoration: "underline",
+          fontSize: "13px",
+          fontWeight: "600",
+          textTransform: "capitalize",
           }}
         >
           Change To {isSignup ? "Log In" : "Sign Up"}
         </Button>
       </Box>
     </form>
+    </>
+    
   );
 };
 

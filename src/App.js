@@ -15,7 +15,7 @@ const AddRecipe = lazy(()=> import('./components/AddRecipe'))
 function App() {
   // useSelector allows us to grab the state from redux
   const isLoggedIn = useSelector(state => state.isLoggedIn)
-  console.log(isLoggedIn);
+  // console.log(isLoggedIn);
 
   return (
     <>
