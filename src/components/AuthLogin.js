@@ -2,8 +2,10 @@ import React, { useState } from "react";
 import { Box, Button, Typography, TextField } from "@mui/material";
 import { useFormik } from "formik";
 import * as yup from "yup";
-import { Link } from "react-router-dom";
+import { Link,useNavigate } from "react-router-dom";
 import axios from "axios"
+import {useDispatch} from 'react-redux'
+import { authActions } from './store/index';
 
 const passwordRules = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{5,}$/;
 // min 5 chars, 1 uppercase, 1 lowercase, 1 numeric
@@ -25,6 +27,8 @@ const basicSchema = yup.object().shape({
 });
 
 function AuthLogin() {
+  const navigate = useNavigate()
+  const dispatch = useDispatch()
   const {
     values,
     errors,
@@ -53,6 +57,8 @@ function AuthLogin() {
                 email: values.email,
                 password: values.password,
             })
+            dispatch(authActions.login())
+            navigate('/recipes')
             console.log('end of submition');
             console.log(data);
         }
