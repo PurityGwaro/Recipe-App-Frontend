@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Box, Button, Typography, TextField } from "@mui/material";
 import { useFormik } from "formik";
 import * as yup from "yup";
+import { Link } from "react-router-dom";
 
 const passwordRules = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{5,}$/;
 // min 5 chars, 1 uppercase, 1 lowercase, 1 numeric
@@ -30,9 +31,7 @@ const basicSchema = yup.object().shape({
     .required("Required"),
 });
 
-const Auth = () => {
-  const [isSignup, setIssignup] = useState(false);
-
+function AuthSignup() {
   const onSubmit = async (values, actions) => {
     // e.preventDefault()
     console.log("submitting form");
@@ -59,34 +58,31 @@ const Auth = () => {
     onSubmit,
   });
   return (
-    <>
-    <form 
-    onSubmit={handleSubmit} 
-    autoComplete="off">
+    <form onSubmit={handleSubmit} autoComplete="off">
       <Box
-      className="contain-auth"
-      display="flex"
-      flexDirection={"column"}
-      alignItems={"center"}
-      justifyContent={"center"}
-      maxWidth={400}
-      boxShadow="10px 10px 30px #ccc"
-      padding={3}
-      margin="auto"
-      marginTop={15}
-      borderRadius={5}
+        className="contain-auth"
+        display="flex"
+        flexDirection={"column"}
+        alignItems={"center"}
+        justifyContent={"center"}
+        maxWidth={400}
+        boxShadow="10px 10px 30px #ccc"
+        padding={3}
+        margin="auto"
+        marginTop={15}
+        borderRadius={5}
       >
         <Typography
-        variant="h3"
-        fontWeight={800}
-        padding={3}
-        textAlign="center"
+          variant="h3"
+          fontWeight={800}
+          padding={3}
+          textAlign="center"
         >
-          {isSignup ? "SignUp" : "LogIn"}
+          SignUp
         </Typography>
-        {isSignup && (
-          <>
-            <TextField
+
+        <>
+          <TextField
             id="username"
             name="username"
             label="Username"
@@ -95,15 +91,13 @@ const Auth = () => {
             value={values.username}
             onChange={handleChange}
             onBlur={handleBlur}
-            className={
-              errors.username && touched.username ? "input-error" : ""
-            }
-            />
-            {errors.username && touched.username && (
-              <p className="error">{errors.username}</p>
-            )}
-          </>
-        )}
+            className={errors.username && touched.username ? "input-error" : ""}
+          />
+          {errors.username && touched.username && (
+            <p className="error">{errors.username}</p>
+          )}
+        </>
+
         <TextField
           id="email"
           name="email"
@@ -134,9 +128,9 @@ const Auth = () => {
         {errors.password && touched.password && (
           <p className="error">{errors.password}</p>
         )}
-        {isSignup && (
-          <>
-            <TextField
+
+        <>
+          <TextField
             type={"password"}
             id="confirmPassword"
             name="confirmPassword"
@@ -151,49 +145,48 @@ const Auth = () => {
                 ? "input-error"
                 : ""
             }
-            />
-            {errors.confirmPassword && touched.confirmPassword && (
-              <p className="error">{errors.confirmPassword}</p>
-            )}
-          </>
-        )}
+          />
+          {errors.confirmPassword && touched.confirmPassword && (
+            <p className="error">{errors.confirmPassword}</p>
+          )}
+        </>
+
         <Button
-        type="submit"
-        // disabled={isSubmitting}
-        className="btn4"
-        color="warning"
-        variant="contained"
-        sx={{
-          borderRadius: "8px",
-          marginTop: 3,
-        }}
+          type="submit"
+          disabled={isSubmitting}
+          className="btn4"
+          color="warning"
+          variant="contained"
+          sx={{
+            borderRadius: "8px",
+            marginTop: 3,
+          }}
         >
           Submit
         </Button>
 
         <Button
+          LinkComponent={Link}
+          to="/authLogin"
           className="btn5"
           onClick={() => {
-            resetForm()
-            setIssignup(!isSignup);
+            resetForm();
           }}
           sx={{
-          marginTop: 2,
-          marginBottom: 2,
-          borderRadius: "8px",
-          textDecoration: "underline",
-          fontSize: "13px",
-          fontWeight: "600",
-          textTransform: "capitalize",
+            marginTop: 2,
+            marginBottom: 2,
+            borderRadius: "8px",
+            textDecoration: "underline",
+            fontSize: "13px",
+            fontWeight: "600",
+            textTransform: "capitalize",
           }}
         >
-          Change To {isSignup ? "Log In" : "Sign Up"}
+          Change To Log In
         </Button>
       </Box>
     </form>
-    </>
-    
   );
-};
+}
 
-export default Auth;
+export default AuthSignup;

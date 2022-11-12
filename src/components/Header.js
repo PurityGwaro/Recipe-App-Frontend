@@ -54,7 +54,7 @@ const Header = () => {
               <Button
               className="btn btn1"
             LinkComponent={Link}
-            to="/auth"
+            to="/authLogin"
             variant="contained"
             sx={{
               borderRadius: "8px",
@@ -67,7 +67,7 @@ const Header = () => {
           <Button
           className="btn btn2"
             LinkComponent={Link}
-            to="/auth"
+            to="/authLogin"
             variant="contained"
             sx={{
               borderRadius: "8px",
