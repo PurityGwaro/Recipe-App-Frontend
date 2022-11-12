@@ -3,7 +3,6 @@ import './App.css';
 import Loader from './components/Loader';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Route, Routes } from "react-router-dom";
-// import { useSelector } from "react-redux";
 
 const Header = lazy(()=> import('./components/Header'))
 const Recipes = lazy(()=> import('./components/Recipes'))
@@ -14,9 +13,6 @@ const AuthLogin = lazy(()=> import('./components/AuthLogin'))
 const AuthSignup = lazy(()=> import('./components/AuthSignup'))
 
 function App() {
-  // useSelector allows us to grab the state from redux
-  // const isLoggedIn = useSelector(state => state.isLoggedIn)
-  // console.log(isLoggedIn);
 
   return (
     <>

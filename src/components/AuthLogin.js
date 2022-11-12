@@ -3,6 +3,7 @@ import { Box, Button, Typography, TextField } from "@mui/material";
 import { useFormik } from "formik";
 import * as yup from "yup";
 import { Link } from "react-router-dom";
+import axios from "axios"
 
 const passwordRules = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{5,}$/;
 // min 5 chars, 1 uppercase, 1 lowercase, 1 numeric
@@ -24,12 +25,6 @@ const basicSchema = yup.object().shape({
 });
 
 function AuthLogin() {
-  const onSubmit = async (values, actions) => {
-    // e.preventDefault()
-    console.log("submitting form");
-    console.log(values);
-  };
-
   const {
     values,
     errors,
@@ -45,7 +40,28 @@ function AuthLogin() {
       password: "",
     },
     validationSchema: basicSchema,
-    onSubmit,
+    onSubmit:async (values,actions) =>{
+        // setLoading(true)
+        console.log('formik log in form is submitting');
+        try{
+            const sendRequest = async () =>{
+              console.log("starting submition");
+              console.log(values.email);
+              console.log(values.password);
+              
+            const data = await axios.post("http://127.0.0.1:5000/api/users/login",{
+                email: values.email,
+                password: values.password,
+            })
+            console.log('end of submition');
+            console.log(data);
+        }
+        sendRequest()
+        }catch(err){
+            console.log("there is an error");
+            console.log(err);
+        }
+    }
   });
   return (
     <form onSubmit={handleSubmit} autoComplete="off">
