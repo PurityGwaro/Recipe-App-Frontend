@@ -69,7 +69,7 @@ function AuthSignup() {
             })
             dispatch(authActions.login())
             navigate('/recipes')
-            console.log(data);
+            console.log(data?.data?.message);
         }
         sendRequest()
         }catch(err){

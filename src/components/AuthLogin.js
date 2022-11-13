@@ -60,7 +60,7 @@ function AuthLogin() {
             dispatch(authActions.login())
             navigate('/recipes')
             console.log('end of submition');
-            console.log(data);
+            console.log(data?.data?.message);
         }
         sendRequest()
         }catch(err){
