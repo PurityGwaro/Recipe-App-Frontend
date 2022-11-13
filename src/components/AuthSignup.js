@@ -67,9 +67,10 @@ function AuthSignup() {
                 password: values.password,
                 confirmPassword: values.confirmPassword,
             })
+            localStorage.setItem("userId",data?.data?.user?._id)
             dispatch(authActions.login())
             navigate('/recipes')
-            console.log(data?.data?.message);
+            console.log(data?.data);
         }
         sendRequest()
         }catch(err){
