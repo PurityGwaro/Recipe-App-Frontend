@@ -19,7 +19,7 @@ const UserRecipes = () => {
   }
   useEffect(()=>{
     sendRequest()
-  },[])
+  })
   return (
     <div>
       {recipes && recipes.map((recipe,index)=>(
