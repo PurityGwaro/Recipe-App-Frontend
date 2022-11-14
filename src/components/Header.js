@@ -43,8 +43,10 @@ const Header = () => {
                 setValue(val);
               }}
             >
-              <Tab LinkComponent={Link} to="/recipes" label="All Recipes" />
-              <Tab LinkComponent={Link} to="/myRecipes" label="My Recipes" />
+              <Tab LinkComponent={Link} to="/recipes" label="All Recipes"/>
+              <Tab LinkComponent={Link} to="/myRecipes" label="My Recipes"/>
+              <Tab LinkComponent={Link} to="/recipes/add" label="Add Recipe"/>
+              
             </Tabs>
           </Box>
         )}

@@ -57,10 +57,11 @@ function AuthLogin() {
                 email: values.email,
                 password: values.password,
             })
+            localStorage.setItem("userId",data?.data?.user?._id)
             dispatch(authActions.login())
             navigate('/recipes')
             console.log('end of submition');
-            console.log(data);
+            console.log(data?.data);
         }
         sendRequest()
         }catch(err){
