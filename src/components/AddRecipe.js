@@ -94,27 +94,8 @@ const AddRecipe = () => {
           Post Your Recipe
         </Typography>
 
-        <InputLabel className="label">Title</InputLabel>
-        <TextField margin="auto" variant="outlined" size="small" />
-
         {/* <InputLabel className='label'>Image</InputLabel>
         <TextField margin='auto' variant="outlined" size="small"/> */}
-
-        <Button
-          variant="contained"
-          component="label"
-          color="warning"
-          sx={{
-            borderRadius: "8px",
-            marginTop: 3,
-            width: "20%",
-          }}
-        >
-          Upload Image
-          <input hidden accept="image/*" multiple type="file" />
-        </Button>
-
-        <InputLabel className="label">Procedure</InputLabel>
 
         <Container>
           <Formik
@@ -122,6 +103,15 @@ const AddRecipe = () => {
             validationSchema={FormValidationSchema}
             render={(props) => (
               <Form>
+                <InputLabel className="label">Title</InputLabel>
+                <TextField
+                  margin="auto"
+                  variant="outlined"
+                  size="small"
+                  sx={{ width: "90%" }}
+                />
+
+                <InputLabel className="label">Procedure</InputLabel>
                 <Box
                 // minHeight="200px"
                 // maxHeight="200px"
@@ -142,19 +132,18 @@ const AddRecipe = () => {
                   </List>
                 </Box>
 
-                <Box 
-                sx={{display:"flex",flexDirection:"row",justifyContent:"space-between",
-                
-              }}
+                <Box
+                  sx={{
+                    display: "flex",
+                    flexDirection: "row",
+                    justifyContent: "space-between",
+                  }}
                 >
-                  <Box
-                  item 
-                    sx={{width:"90%",}}
-                  >
+                  <Box item sx={{ width: "90%" }}>
                     <TextField
                       id="item_name"
                       name="item_name"
-                      label="Name"
+                      label="Step"
                       fullWidth
                       variant="outlined"
                       value={props.values.item_name}
@@ -172,10 +161,16 @@ const AddRecipe = () => {
                       InputLabelProps={{ shrink: true }}
                     />
                   </Box>
-{/* add button start */}
-                  <Grid item >
+                  {/* add button start */}
+                  <Grid item>
                     <IconButton
-                    sx={{border:"2px solid #ed6c02",borderRadius:"8px",color: "#ed6c02", fontSize: "90px",background: "#ccc",}}
+                      sx={{
+                        border: "2px solid #ed6c02",
+                        borderRadius: "8px",
+                        color: "#ed6c02",
+                        fontSize: "90px",
+                        background: "#ccc",
+                      }}
                       type="button"
                       onClick={() => {
                         console.log("Add button clicked");
@@ -198,12 +193,26 @@ const AddRecipe = () => {
                         });
                       }}
                     >
-                      <AddIcon sx={{fontSize:"30px" }} />
-                      
+                      <AddIcon sx={{ fontSize: "30px" }} />
                     </IconButton>
                   </Grid>
-              {/* add button end */}
+                  {/* add button end */}
+
+                  
                 </Box>
+                <Button
+                    variant="contained"
+                    component="label"
+                    color="warning"
+                    sx={{
+                      borderRadius: "8px",
+                      marginTop: 3,
+                      width: "20%",
+                    }}
+                  >
+                    Upload Image
+                    <input hidden accept="image/*" multiple type="file" />
+                  </Button>
               </Form>
             )}
           />
