@@ -12,10 +12,11 @@ const AddRecipe = () => {
       width={"80%"}
       display={"flex"}
       flexDirection={"column"}
-      border={3}
-      borderColor="#ccc"
+      // border={3}
+      // borderColor="#ccc"
       borderRadius={10}
       boxShadow="10px 10px 20px #ccc"
+      borderTop="2px solid #ed6c02"
       >
         <Typography
         fontWeight={"bolder"}

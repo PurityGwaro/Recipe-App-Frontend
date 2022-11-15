@@ -61,7 +61,7 @@ function AuthSignup() {
         try{
             const sendRequest = async () =>{
 
-            const data = await axios.post("http://127.0.0.1:5000/api/users/signup",{
+            const data = await axios.post("http://127.0.0.1:5001/api/users/signup",{
                 email: values.email,
                 name :values.username,
                 password: values.password,
@@ -94,6 +94,7 @@ function AuthSignup() {
         margin="auto"
         marginTop={15}
         borderRadius={5}
+        borderTop="2px solid #ed6c02"
       >
         <Typography
           variant="h3"

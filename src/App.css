@@ -1,6 +1,37 @@
+*{
+    margin: 0;
+  }
+  .loader{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    height:100vh;
+  }
+  .error {
+    color: #fc8181;
+    font-size: 0.75rem;
+    text-align: left;
+    margin-top: 0.25rem;
+  }
+  input.input-error,
+  select.input-error{
+    border-color: #fc8181;
+  }
+  button:disabled{
+    opacity:0.35
+  }
 .label{
     margin-bottom: 10px;
     margin-top: 20px;
     font-size: 24px;
     font-weight: bold;
+}
+.recipes{
+    margin: 20px;
+    display: flex;
+    flex-direction: row;
+    /* gap: 30px; */
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
 }
