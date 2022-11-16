@@ -3,7 +3,7 @@ import { Box, Button, InputLabel, TextField, Typography } from "@mui/material";
 import PhotoCamera from "@mui/icons-material/PhotoCamera";
 import IconButton from "@mui/material/IconButton";
 import AddIcon from "@mui/icons-material/Add";
-import { useFormik } from "formik";
+import { FieldArray, useFormik } from "formik";
 import * as yup from "yup";
 
 import ReactDOM from "react-dom";
@@ -38,13 +38,12 @@ const FormValidationSchema = yup.object().shape({
   item_name: yup
     .string()
     .matches(alpha_num_limited.regex, alpha_num_limited.message),
-  quantity: yup.number().typeError("Please enter a numebr"),
+  // quantity: yup.number().typeError("Please enter a numebr"),
 });
 
 // --- Form Schema  Definition -- //
 const FormSchema = {
   item_name: "",
-  quantity: "",
   items: [],
 };
 
@@ -67,24 +66,32 @@ const AddRecipe = () => {
     onSubmit: async (values, actions) => {},
   });
   return (
-    <form>
-      <Box
-        margin={"auto"}
-        marginTop={5}
-        padding={3}
-        paddingRight={10}
-        paddingLeft={10}
-        paddingBottom={10}
-        width={"50%"}
-        display={"flex"}
-        flexDirection={"column"}
+    
+        <Container
+        
+        style={{
+          margin:"auto",
+        marginTop:"5%",        
+        padding:"2%",
+        paddingRight:"4%",
+        paddingLeft:"4%",
+        paddingBottom:"4%",
+        width:"50%",
+        display:"flex",
+        flexDirection:"column",
         // border={3}
         // borderColor="#ccc"
-        borderRadius={10}
-        boxShadow="10px 10px 20px #ccc"
-        borderTop="2px solid #ed6c02"
-      >
-        <Typography
+        borderRadius:"4%",
+        boxShadow:"10px 10px 20px #ccc",
+        borderTop:"2px solid #ed6c02",
+        }}
+        >
+          <Formik
+            initialValues={FormSchema}
+            validationSchema={FormValidationSchema}
+            render={(props,arrayHelpers) => (
+              <Form>
+                <Typography
           fontWeight={"bolder"}
           // fontSize={30}
           variant="h4"
@@ -93,16 +100,7 @@ const AddRecipe = () => {
         >
           Post Your Recipe
         </Typography>
-
-        {/* <InputLabel className='label'>Image</InputLabel>
-        <TextField margin='auto' variant="outlined" size="small"/> */}
-
-        <Container>
-          <Formik
-            initialValues={FormSchema}
-            validationSchema={FormValidationSchema}
-            render={(props) => (
-              <Form>
+                {/* {console.log(props)} */}
                 <InputLabel className="label">Title</InputLabel>
                 <TextField
                   margin="auto"
@@ -110,29 +108,109 @@ const AddRecipe = () => {
                   size="small"
                   sx={{ width: "90%" }}
                 />
-
+                <Button
+                    variant="contained"
+                    component="label"
+                    color="warning"
+                    sx={{
+                      borderRadius: "8px",
+                      marginTop: 3,
+                      width: "20%",
+                    }}
+                  >
+                    Upload Image
+                    <input hidden accept="image/*" multiple type="file" />
+                  </Button>
                 <InputLabel className="label">Procedure</InputLabel>
-                <Box
-                // minHeight="200px"
-                // maxHeight="200px"
-                // overflow="scroll"
-                >
+
+                <FieldArray name="items"
+                render={(arrayHelpers) => (
                   <List>
-                    {props.values.items.map((item,index) => {
-                      return (
-                        <ListItem>
-                          
-                          <ListItemText
-                            primary={item.item_name}
-                          />
-                          <Button
-                          onClick={(index)=>{console.log(index)}}
-                          >Delete</Button>
-                        </ListItem>
-                      );
-                    })}
-                  </List>
-                </Box>
+                  { props.values.items.map((item,index) => {
+                    return (
+                      <>
+                      <ListItem  key={index}>
+                        
+                        <TextField
+                        value={item.item_name}
+                        placeholder={item.item_name}
+                        onChange={()=>{console.log('editing a step');}}
+                        />
+                        <Button
+                      type="button"
+                      onClick={() =>{
+                        console.log(`delete button clicked, to remove item of index ${index}`);
+                        // const removed = arrayHelpers.remove(index)
+                        console.log(arrayHelpers);
+                      }}
+                      >Edit</Button>
+                        <Button
+                      type="button"
+                      onClick={() =>{
+                        console.log(`delete button clicked, to remove item of index ${index}`);
+                        const removed = arrayHelpers.remove(index)
+                        console.log(typeof removed);
+                      }}
+                      >Delete</Button>
+                      </ListItem>
+                      
+                      
+                      </>
+                      
+                    );
+                  })}
+                </List>
+                )}
+                />
+       
+                {/* <Box 
+                    // minHeight="200px"
+                    // maxHeight="200px"
+                    // overflow="scroll"
+                    >
+                     
+                      <List>
+                        { props.values.items.map((item,index) => {
+                          return (
+                            <>
+                            <ListItem key={index}>
+                              
+                              <ListItemText
+                              name={`item.${index}`}
+                              primary={item.item_name}
+                              />
+                              <Button
+                            type="button"
+                            onClick={() =>{
+                              console.log(`delete button clicked, to remove item of index ${index}`);
+                              console.log(`initial value b4 delete ${item.item_name}`);
+                              // props.setValues({
+                              //   items: values.items.filter((item) => item !== index), // Remove clicked item
+                              // })
+                              
+                              props.validateForm().then((results) => {
+                                if (!("item_name" in results)) {
+                                  // Sets the item field
+                                  props.setValues({
+                                items: values.items.filter((item) => item !== index), // Remove clicked item
+                              })
+      
+                                  // Clear form values
+                                }
+                              });
+                              console.log(`initial value after delete ${item.item_name}`);
+                            }}
+                            >Delete</Button>
+                            </ListItem>
+                            
+                            </>
+                            
+                          );
+                        })}
+                      </List>
+                    </Box> */}
+               
+                
 
                 <Box
                   sx={{
@@ -176,9 +254,7 @@ const AddRecipe = () => {
                       type="button"
                       onClick={() => {
                         console.log("Add button clicked");
-                        // props
-                        //   .validateField("item_name")
-                        //   .then(results => console.log(results));
+
                         props.validateForm().then((results) => {
                           if (!("item_name" in results)) {
                             // Sets the item field
@@ -202,25 +278,13 @@ const AddRecipe = () => {
 
                   
                 </Box>
-                <Button
-                    variant="contained"
-                    component="label"
-                    color="warning"
-                    sx={{
-                      borderRadius: "8px",
-                      marginTop: 3,
-                      width: "20%",
-                    }}
-                  >
-                    Upload Image
-                    <input hidden accept="image/*" multiple type="file" />
-                  </Button>
+               
+                
               </Form>
             )}
           />
-        </Container>
 
-        {/* <Box
+            {/* <Box
           sx={{
             display: "flex",
           }}
@@ -260,8 +324,10 @@ const AddRecipe = () => {
             POST
           </Button>
         </Box>
-      </Box>
-    </form>
+        </Container>
+
+      
+  
   );
 };
 
