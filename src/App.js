@@ -26,6 +26,7 @@ function App() {
           <Route exact path="/myRecipes" element={<UserRecipes />} />
           <Route exact path="/myRecipes/:id" element={<RecipeDetail />} />
           <Route exact path="/recipes/add" element={<AddRecipe />} />
+          {/* add a route for everything else and define an error page: path="*" */}
         </Routes>
       </div>
     </Suspense>
