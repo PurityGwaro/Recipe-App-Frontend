@@ -17,6 +17,7 @@ export default function Recipe({title,description,imageUrl,userName,date}) {
         margin:"auto",
         mt:2,
         padding:2,
+        borderTop:"2px solid #ed6c02",
         boxShadow:"0px 5px 5px #ccc",
         ":hover":{
             boxShadow:"2px 10px 20px #ccc",
