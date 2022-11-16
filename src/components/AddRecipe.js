@@ -1,17 +1,10 @@
-import React from "react";
+import React, {useState} from "react";
 import { Box, Button, InputLabel, TextField, Typography } from "@mui/material";
-import PhotoCamera from "@mui/icons-material/PhotoCamera";
 import IconButton from "@mui/material/IconButton";
 import AddIcon from "@mui/icons-material/Add";
-
-import { FieldArray, useFormik,useFormik } from "formik";
-
+import { FieldArray, useFormik } from "formik";
 import * as yup from "yup";
-
-import ReactDOM from "react-dom";
-// import * as yup from "yup"; // for everything
 import { Formik, Form, Field } from "formik";
-// import DisplayFormikState from "./DisplayFormikState";
 import {
   Grid,
   // TextField,
@@ -45,22 +38,21 @@ const FormValidationSchema = yup.object().shape({
   step_text: yup
     .string()
     .matches(alpha_num_limited.regex, alpha_num_limited.message),
-  // quantity: yup.number().typeError("Please enter a numebr"),
-
  
-
 });
 
 // --- Form Schema  Definition -- //
 const FormSchema = {
 
   title: "",
+  file:"",
   step_text: "",
 
   items: [],
 };
 
 const AddRecipe = () => {
+  const [image,setImage] = useState()
   const {
     values,
     errors,
@@ -82,7 +74,7 @@ const AddRecipe = () => {
     <Container
       style={{
         margin: "auto",
-        marginTop: "5%",
+        marginTop: "3%",
         padding: "2%",
         paddingRight: "4%",
         paddingLeft: "4%",
@@ -90,8 +82,6 @@ const AddRecipe = () => {
         width: "50%",
         display: "flex",
         flexDirection: "column",
-        // border={3}
-        // borderColor="#ccc"
         borderRadius: "4%",
         boxShadow: "10px 10px 20px #ccc",
         borderTop: "2px solid #ed6c02",
@@ -100,26 +90,27 @@ const AddRecipe = () => {
       <Formik
         initialValues={FormSchema}
         validationSchema={FormValidationSchema}
-        // render=
+        onSubmit={(values,actions)=>{
+          console.log('submiting form');
+          console.log(values);
+          console.log(image);
+        }}
       >
         {(props, arrayHelpers) => (
           <Form>
             <Typography
               fontWeight={"bolder"}
-              // fontSize={30}
               variant="h4"
               padding={2}
               textAlign={"center"}
             >
               Post Your Recipe
             </Typography>
-            {/* {console.log(props)} */}
             <InputLabel className="label">Title</InputLabel>
 
             <TextField
               id="title"
               name="title"
-              // label="title"
               fullWidth
               size="small"
               variant="outlined"
@@ -134,19 +125,19 @@ const AddRecipe = () => {
               onBlur={props.handleBlur}
               InputLabelProps={{ shrink: true }}
             />
-            <Button
-              variant="contained"
-              component="label"
-              color="warning"
-              sx={{
-                borderRadius: "8px",
-                marginTop: 3,
-                width: "20%",
-              }}
-            >
-              Upload Image
-              <input hidden accept="image/*" multiple type="file" />
-            </Button>
+
+            <InputLabel className="label">Upload Image</InputLabel>
+            <TextField 
+            type='file' 
+            name='file' 
+            accept='image/*'  
+            onChange={(event) => {
+              // props.setFieldValue("file", event.currentTarget.files[0]);
+              setImage(event.target.files[0])
+            }}
+            sx={{width:"100%",paddingBottom:"4px"}} />
+             
+           
             <InputLabel className="label">Procedure</InputLabel>
 
             <FieldArray name="items">
@@ -166,7 +157,7 @@ const AddRecipe = () => {
                           type="button"
                           onClick={() => {
                             console.log(
-                              `delete button clicked, to remove item of index ${index}`
+                              `edit button clicked, to edit item of index ${index}`
                             );
                             console.log(arrayHelpers);
                           }}
