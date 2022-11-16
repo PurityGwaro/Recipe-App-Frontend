@@ -3,7 +3,9 @@ import { Box, Button, InputLabel, TextField, Typography } from "@mui/material";
 import PhotoCamera from "@mui/icons-material/PhotoCamera";
 import IconButton from "@mui/material/IconButton";
 import AddIcon from "@mui/icons-material/Add";
-import { FieldArray, useFormik } from "formik";
+
+import { FieldArray, useFormik,useFormik } from "formik";
+
 import * as yup from "yup";
 
 import ReactDOM from "react-dom";
@@ -35,6 +37,7 @@ const alpha_num_limited = {
 
 // --- Form Schema Validation Definition -- //
 const FormValidationSchema = yup.object().shape({
+
   title: yup
     .string()
     .min(1)
@@ -43,12 +46,17 @@ const FormValidationSchema = yup.object().shape({
     .string()
     .matches(alpha_num_limited.regex, alpha_num_limited.message),
   // quantity: yup.number().typeError("Please enter a numebr"),
+
+ 
+
 });
 
 // --- Form Schema  Definition -- //
 const FormSchema = {
+
   title: "",
   step_text: "",
+
   items: [],
 };
 
@@ -267,6 +275,7 @@ const AddRecipe = () => {
         )}
       </Formik>
     </Container>
+
   );
 };
 
