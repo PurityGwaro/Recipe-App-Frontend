@@ -3,16 +3,19 @@ import './App.css';
 import Loader from './components/Loader';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Route, Routes } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 const Header = lazy(()=> import('./components/Header'))
+const Auth = lazy(()=> import('./components/Auth'))
 const Recipes = lazy(()=> import('./components/Recipes'))
 const UserRecipes = lazy(()=> import('./components/UserRecipes'))
 const RecipeDetail = lazy(()=> import('./components/RecipeDetail'))
 const AddRecipe = lazy(()=> import('./components/AddRecipe'))
-const AuthLogin = lazy(()=> import('./components/AuthLogin'))
-const AuthSignup = lazy(()=> import('./components/AuthSignup'))
 
 function App() {
+  // useSelector allows us to grab the state from redux
+  const isLoggedIn = useSelector(state => state.isLoggedIn)
+  console.log(isLoggedIn);
 
   return (
     <>
@@ -20,8 +23,7 @@ function App() {
       <Header/>
       <div className="contain">
         <Routes>
-          <Route exact path="/authSignup" element={<AuthSignup />} />
-          <Route exact path="/authLogin" element={<AuthLogin />} />
+          <Route exact path="/auth" element={<Auth />} />
           <Route exact path="/recipes" element={<Recipes/>} />
           <Route exact path="/myRecipes" element={<UserRecipes />} />
           <Route exact path="/myRecipes/:id" element={<RecipeDetail />} />
