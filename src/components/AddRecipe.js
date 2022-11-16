@@ -53,9 +53,6 @@ const AddRecipe = () => {
           
         </Button>
       
-        
-
-       
 
         <InputLabel className="label">Procedure</InputLabel>
 
