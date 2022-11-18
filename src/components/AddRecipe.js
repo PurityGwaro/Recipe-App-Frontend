@@ -1,8 +1,9 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import { Box, Button, InputLabel, TextField, Typography } from "@mui/material";
 import IconButton from "@mui/material/IconButton";
+import DeleteIcon from "@mui/icons-material/Delete";
 import AddIcon from "@mui/icons-material/Add";
-import { FieldArray, useFormik } from "formik";
+import { FieldArray } from "formik";
 import * as yup from "yup";
 import { Formik, Form, Field } from "formik";
 import {
@@ -18,10 +19,6 @@ import {
 } from "@material-ui/core";
 import { Add } from "@material-ui/icons";
 
-const initialValues = {};
-
-const addRecipeSchema = yup.object().shape({});
-
 const alpha_num_limited = {
   regex: /^([a-zA-Z0-9 ])+$/,
   message:
@@ -30,7 +27,6 @@ const alpha_num_limited = {
 
 // --- Form Schema Validation Definition -- //
 const FormValidationSchema = yup.object().shape({
-
   title: yup
     .string()
     .min(1)
@@ -38,38 +34,21 @@ const FormValidationSchema = yup.object().shape({
   step_text: yup
     .string()
     .matches(alpha_num_limited.regex, alpha_num_limited.message),
- 
 });
 
 // --- Form Schema  Definition -- //
 const FormSchema = {
-
   title: "",
-  file:"",
+  file: "",
   step_text: "",
 
   items: [],
 };
 
 const AddRecipe = () => {
-  const [image,setImage] = useState()
-  const {
-    values,
-    errors,
-    touched,
-    isSubmitting,
-    handleBlur,
-    handleChange,
-    handleSubmit,
-    resetForm,
-  } = useFormik({
-    initialValues: {
-      email: "",
-      password: "",
-    },
-    validationSchema: addRecipeSchema,
-    onSubmit: async (values, actions) => {},
-  });
+  const [image, setImage] = useState();
+  const [step, setStep] = useState("");
+
   return (
     <Container
       style={{
@@ -90,8 +69,8 @@ const AddRecipe = () => {
       <Formik
         initialValues={FormSchema}
         validationSchema={FormValidationSchema}
-        onSubmit={(values,actions)=>{
-          console.log('submiting form');
+        onSubmit={(values, actions) => {
+          console.log("submiting form");
           console.log(values);
           console.log(image);
         }}
@@ -127,17 +106,16 @@ const AddRecipe = () => {
             />
 
             <InputLabel className="label">Upload Image</InputLabel>
-            <TextField 
-            type='file' 
-            name='file' 
-            accept='image/*'  
-            onChange={(event) => {
-              // props.setFieldValue("file", event.currentTarget.files[0]);
-              setImage(event.target.files[0])
-            }}
-            sx={{width:"100%",paddingBottom:"4px"}} />
-             
-           
+            <TextField
+              type="file"
+              name="file"
+              accept="image/*"
+              onChange={(event) => {
+                setImage(event.target.files[0]);
+              }}
+              sx={{ width: "100%", paddingBottom: "4px" }}
+            />
+
             <InputLabel className="label">Procedure</InputLabel>
 
             <FieldArray name="items">
@@ -149,32 +127,43 @@ const AddRecipe = () => {
                         <TextField
                           value={item.step_text}
                           placeholder={item.step_text}
-                          onChange={() => {
-                            console.log("editing a step");
+                          disabled
+                          size="small"
+                          variant="standard"
+                          InputProps={{
+                            readOnly: true,
+                          }}
+                          sx={{
+                            width: "90%",
+                            marginRight: "20px",
+                            borderRadius: "8px",
                           }}
                         />
-                        <Button
+                        {/* <Button
                           type="button"
+                          color="warning"
+                          variant="contained"
                           onClick={() => {
                             console.log(
                               `edit button clicked, to edit item of index ${index}`
                             );
                             console.log(arrayHelpers);
                           }}
+                          sx={{marginRight:"5px"}}
                         >
                           Edit
-                        </Button>
-                        <Button
-                          type="button"
-                          onClick={() => {
+                        </Button> */}
+                       
+                        <IconButton 
+                        aria-label="delete"
+                        onClick={() => {
                             console.log(
                               `delete button clicked, to remove item of index ${index}`
                             );
                             arrayHelpers.remove(index);
-                          }}
-                        >
-                          Delete
-                        </Button>
+                          }}>
+                          <DeleteIcon color="warning"/>
+                        </IconButton>
                       </ListItem>
                     );
                   })}
@@ -189,11 +178,11 @@ const AddRecipe = () => {
                 justifyContent: "space-between",
               }}
             >
-              <Box item sx={{ width: "90%" }}>
+              <Box sx={{ width: "94%" }}>
                 <TextField
                   id="step_text"
                   name="step_text"
-                  label="Step"
+                  label="Add Step"
                   fullWidth
                   size="small"
                   variant="outlined"
@@ -212,13 +201,12 @@ const AddRecipe = () => {
                 />
               </Box>
               {/* add button start */}
-              <Box item>
+              <Box>
                 <IconButton
                   sx={{
                     border: "2px solid #ed6c02",
                     borderRadius: "8px",
                     color: "#ed6c02",
-                    fontSize: "90px",
                     background: "#ccc",
                   }}
                   type="button"
@@ -242,7 +230,7 @@ const AddRecipe = () => {
                     }
                   }}
                 >
-                  <AddIcon sx={{ fontSize: "30px" }} />
+                  <AddIcon sx={{ fontSize: "20px" }} />
                 </IconButton>
               </Box>
               {/* add button end */}
@@ -266,7 +254,6 @@ const AddRecipe = () => {
         )}
       </Formik>
     </Container>
-
   );
 };
 
