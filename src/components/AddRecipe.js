@@ -41,14 +41,22 @@ const FormSchema = {
   title: "",
   file: "",
   step_text: "",
-
   items: [],
 };
 
 const AddRecipe = () => {
   const [image, setImage] = useState();
   const [step, setStep] = useState("");
-
+  const submitData = async(title,description,image)=>{
+    console.log(`this is the description: ${description}`);
+    description.forEach((desc)=>{
+      console.log(desc?.step_text)
+    })
+    console.log(`this is the title: ${title}`);
+    console.log('here comes the image');
+    console.log(image);
+    
+  }
   return (
     <Container
       style={{
@@ -71,8 +79,10 @@ const AddRecipe = () => {
         validationSchema={FormValidationSchema}
         onSubmit={(values, actions) => {
           console.log("submiting form");
-          console.log(values);
-          console.log(image);
+          const title = values?.title
+          const description = values?.items
+          
+          submitData(title,description,image)
         }}
       >
         {(props, arrayHelpers) => (
